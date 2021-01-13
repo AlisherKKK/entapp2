@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>John Doe - UX Designer & Front End Developer</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Favicons
+    ================================================== -->
+<link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/images/apple-touch-icon-114x114.png">
+
+
+
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome/css/font-awesome.css">
+<!-- Stylesheet
+    ================================================== -->
+<link rel="stylesheet" type="text/css"  href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/prettyPhoto.css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>
+<link rel="stylesheet" type="text/css"  href="/static/css/table1.css">
+<!--===============================================================================================-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+<!-- Header -->
+<header id="header">
+  <div class="intro">
+    <div class="container">
+      <div class="row">
+        <div class="intro-text">
+          <h1>Привет, <span class="name">{{ name }}</span></h1>
+          <p>Ваши уроки: {{ sub1 }}, {{sub2}}</p>
+          <a href="#about" class="btn btn-default btn-lg page-scroll">Заполнять результаты</a> </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Navigation -->
+<div id="nav">
+  <nav class="navbar navbar-custom">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> <i class="fa fa-bars"></i> </button>
+        <a class="navbar-brand page-scroll" href="#page-top">{{name}}</a> </div>
+      
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+        <ul class="nav navbar-nav">
+          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+          <li class="hidden"> <a href="#page-top"></a> </li>
+          <li> <a class="page-scroll" href="#"><span id="spid">{{ id }}</span></a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- About Section -->
+<div id="about">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Заполнять по дням</h2>
+      <hr>
+    </div>
+    <div class="row">
+      <form action="{% url 'result:add_res' pers %}" method="POST">
+                        {% csrf_token %}
+    <input type="date" name = "date">
+<table class="resp-tab">
+    <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Цель</th>
+            <th>Выполнено</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <!-- Строки таблицы -->
+        <tr>
+            <td>Мат сауат</td>
+            <td><input type="number" placeholder="Цель" name = "target1"></td>
+            <td><input type="number" placeholder="Выполнено" name = "done1"></td>
+        </tr>
+        <tr>
+            <td>Оку сауат</td>
+            <td><input type="number" placeholder="Цель" name = "target2"></td>
+            <td><input type="number" placeholder="Выполнено" name = "done2"></td>
+            
+        </tr>
+        <tr>
+            <td>К тарих</td>
+            <td><input type="number" placeholder="Цель" name = "target3"></td>
+            <td><input type="number" placeholder="Выполнено" name = "done3"></td>
+        </tr>
+        <tr>
+            <td>{{sub1}}</td>
+            <td><input type="number" placeholder="Цель" name = "target4"></td>
+            <td><input type="number" placeholder="Выполнено" name = "done4"></td>
+        </tr>
+        <tr>
+            <td>{{sub2}}</td>
+            <td><input type="number" placeholder="Цель" name = "target5"></td>
+            <td><input type="number" placeholder="Выполнено" name = "done5"></td>
+        </tr>
+        
+    </tbody>
+</table>   
+    <div class="container-login100-form-btn">
+            <button class="login100-form-btn btn btn-success" type="submit">
+              Сдать
+            </button>
+          </div>
+
+</form>
+    </div>
+  </div>
+  
+      
+</div>
+
+<div id="about" style="background-color: LightSeaGreen">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Результат пробного</h2>
+      <hr>
+    </div>
+    <div class="row">
+      <form action="{% url 'result:add_res_ent' pers %}" method="POST">
+                        {% csrf_token %}
+    <input type="date" name = "dateT">
+<table class="resp-tab">
+    <thead>
+        <tr>
+            <th>Тип</th>
+            <th>Балл</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <!-- Строки таблицы -->
+        <tr>
+            <td><input type="number" placeholder="Тип" name = "typ"></td>
+            <td><input type="number" placeholder="Балл" name = "ent1"></td>
+        </tr>
+        
+        
+    </tbody>
+</table>   
+    <div class="container-login100-form-btn">
+            <button class="login100-form-btn btn btn-success" type="submit">
+              Сдать
+            </button>
+          </div>
+
+</form>
+    </div>
+  </div>
+  
+      
+</div>
+<div id="searchDiv" style="display: none; width: 50%; margin: 0 auto;">
+    
+    <input class="form-control" type="text" placeholder="ID" id="search-text" onkeyup="tableSearch()">
+<table class="table table-striped" id="info-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Сдал</th>
+            <th>Цель</th>
+            <th>Сделано</th>
+            <th>Пробный</th>
+            <th>Дата</th>
+        </tr>
+        {% for i in person %}
+            <tr>
+                <td> {{ i.pers_id }} </td>
+                <td> {{ i.pers_fullname }} </td>
+                <td> {{ i.get_last_submit }}
+                <td> {{i.get_all_target}} </td>
+                <td> {{ i.get_all_result }} </td>
+                <td> {{ i.get_last_trials_res }} </td>
+                <td> {{ i.get_last_trials_date }} </td>
+
+            </tr>
+        {% endfor %}
+    </thead>
+    <tbody>
+    </tbody>
+</table>     
+</div>
+<script type="text/javascript" charset="utf-8" >
+    if (document.getElementById("spid").textContent=="777"){
+        document.getElementById("about").style.display = 'none'
+        document.getElementById("searchDiv").style.display = 'block'
+    }   
+
+    function tableSearch() {
+    var phrase = document.getElementById('search-text');
+    var table = document.getElementById('info-table');
+    var regPhrase = new RegExp(phrase.value, 'i');
+    var flag = false;
+    for (var i = 1; i < table.rows.length; i++) {
+        flag = false;
+        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+            if (flag) break;
+        }
+        if (flag) {
+            table.rows[i].style.display = "";
+        } else {
+            table.rows[i].style.display = "none";
+        }
+
+    }
+}
+</script>
+<script type="text/javascript" src="/static/js/jquery.1.11.1.js"></script> 
+<script type="text/javascript" src="/static/js/bootstrap.js"></script> 
+<script type="text/javascript" src="/static/js/SmoothScroll.js"></script> 
+<script type="text/javascript" src="/static/js/easypiechart.js"></script> 
+<script type="text/javascript" src="/static/js/jquery.prettyPhoto.js"></script> 
+<script type="text/javascript" src="/static/js/jquery.isotope.js"></script> 
+<script type="text/javascript" src="/static/js/jquery.counterup.js"></script> 
+<script type="text/javascript" src="/static/js/waypoints.js"></script> 
+<script type="text/javascript" src="/static/js/jqBootstrapValidation.js"></script> 
+<script type="text/javascript" src="/static/js/contact_me.js"></script> 
+<script type="text/javascript" src="/static/js/main.js"></script>
+<script type="text/javascript" src="/static/js/table1.js"></script>
+<script src="/static/t/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+
+
+</body>
+</html>
