@@ -15,13 +15,16 @@ SECRET_KEY = '+b$y5!#3#)p*dtuls4-e6-=%^u%fka(zt$btk+ev33bpl$v%hm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'result.apps.ResultConfig',
+    'jet',
+    'jet.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,11 +54,16 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.request',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_templatetags': 'result.templatetags.result_tag',
+
+            }
         },
     },
 ]

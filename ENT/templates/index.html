@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{% block title %}Login{% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/static/images/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<!--===============================================================================================-->
+
+	<link rel="stylesheet" type="text/css" href="/static/css/combobox.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/checkbox.css">
+
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('/static/images/bg-01.jpg');">
+			<div class="wrap-login100">{% block form %}
+
+                {% endblock %}
+			</div>
+		</div>
+	</div>
+		
+	<div id="dropDownSelect1"></div>
+<!--===============================================================================================-->
+	<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/js/maini.js"></script>
+	<script type="text/javascript">
+		function change () {
+			var tv = document.getElementById("tvorr");
+			var dis = document.getElementById("predmet")
+			if (tv.checked){
+				console.log("asd");
+				dis.style.display = 'none';
+			}
+			else {
+				console.log("asd");
+				dis.style.display = 'flex';
+			}
+		}
+
+	</script>
+	<script type="text/javascript">
+		var i = 0;
+		function reg_form () {
+			if (i%2==0){
+				document.getElementById("usern").value=""
+				var show = document.getElementById("reg_id")
+				show.style.display = 'block';
+				document.getElementById("usern").setAttribute('placeholder', 'Никнейм')
+				document.getElementById("reg-back").innerHTML="Назад";
+			}
+			else{
+				var show = document.getElementById("reg_id")
+				show.style.display = 'none';
+				document.getElementById("nsur").value="";
+				var show2 = document.getElementById("tohide")
+				show2.style.display = 'flex';
+				document.getElementById("usern").setAttribute('placeholder', 'id или Никнейм')
+				document.getElementById("reg-back").innerHTML="Регистрация";
+			}
+			i++;
+		}
+		function pred () {
+			var p = document.getElementsByClassName("sub");
+			for (var i = 0; i<20; i++ )
+				p[i].checked = false;
+		}
+		function predy () {
+			var r = "";
+			var p = document.getElementsByClassName("sub");
+			for (var i = 0; i<20; i++){
+				if (p[i].checked){
+					r+=p[i].value+" ";
+				}
+
+			}
+			document.getElementById("predmett").value=r;
+		}
+	</script>
+
+	<script type="text/javascript">
+		[].slice.call
+(document.querySelectorAll(".ui-combobox")).forEach(function(node){
+  node.controller = new UICombobox(node, function(selection){
+    console.log(this, selection);
+  });
+});
+
+function UICombobox (node, callback) {
+  function dispatchEvent (element, event, data) {
+    if (document.createEventObject) {
+      var e = document.createEventObject();
+      e.data = data;
+      return element.fireEvent("on" + event, e);
+    }
+    else {
+      var e = document.createEvent("HTMLEvents");
+      e.data = data;
+      e.initEvent(event, true, true );
+      return !element.dispatchEvent(e);
+    }
+  }
+  function getSelected () {
+    var list = [], values = [];
+    [].slice.call
+    (node.querySelectorAll(".ui-options input:not([toggle]):checked")).forEach(function(field){
+      list.push({
+        field:field,
+        value:field.value,
+        item:field.parentNode
+      });
+      values.push(field.value);
+    });
+    return {list:list, values:values};
+  }
+  function fillSelection (array) {
+    var array = [].slice.call(array);
+    for (var i in array) array[i] += "";
+    [].slice.call
+    (node.querySelectorAll(".ui-options input:not([toggle])")).forEach(function(field){
+      field.checked = !!(typeof field.value != "undefined" && array.indexOf(field.value) >= 0);
+    });
+    update();
+  }
+  function update () {
+    var uiValue = node.querySelector(".ui-value");
+    var uiOptions = node.querySelector(".ui-options");
+    var uiToggler = node.querySelector("input[toggle]");
+    var selected = getSelected().list;
+    if (uiToggler) {
+      var uifields = node.querySelectorAll(".ui-options input:not([toggle])");
+      uiToggler.checked = !!(uifields.length == selected.length);
+    }
+    if (uiValue) {
+      uiValue.selected = selected;
+      uiValue.innerHTML = "";
+      uiValue.setAttribute("count", selected.length);
+      for (var i=0; i<selected.length; i++) {
+        var item = selected[i].item.cloneNode(true),
+            input = item.querySelector("input");
+        if (input) input.removeAttribute("name");
+        item.addEventListener("click", function(e) {
+          if (e.target.tagName.toLowerCase() == "input") {
+            var option = uiOptions.querySelector("input[value='"+e.target.value+"']");
+            if (option) {
+              if (option.type == "radio") {
+                option.checked = false;
+                dispatchEvent(option, "change");
+              }
+              else option.click();
+            }
+          }
+        });
+        uiValue.appendChild(item);
+      }
+    }
+  }
+  function toggle (status) {
+    [].slice.call(node.querySelectorAll(".ui-options input[type=radio], .ui-options input[type=checkbox]")).forEach(function(input){
+      input.checked = !!status;
+    });
+    update();
+  }
+  node.addEventListener("click", function(e) {
+    var target = e.target;
+    if (target.tagName.toLowerCase() == "input") {
+      setTimeout(function(){
+        if (target.hasAttribute("toggle")) {
+          toggle(!!target.checked);
+        }
+        else {
+          if (target.type == "radio") { /* TODO: unchecked */ }
+          update();
+        }
+        if (typeof callback == "function") callback.call(node, getSelected(), node);
+      }, 0);
+    }
+  }, true);
+  update();
+  this.node = node;
+  this.toggleAll = toggle;
+  this.fillSelection = fillSelection;
+  this.getSelected = getSelected;
+  this.update = update;
+}
+	</script>
+
+</body>
+</html>

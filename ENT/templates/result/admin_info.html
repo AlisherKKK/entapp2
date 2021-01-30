@@ -1,0 +1,179 @@
+{% extends 'info.html' %}
+{% block greeting %}
+    <h1>Привет, <span class="name">{{ name }}</span></h1>
+{% endblock %}
+
+{% block info %}
+
+<div id="searchDiv" style="display: block; width: 50%; margin: 0 auto;">
+<div style="margin-top: 5%" class="container alert alert-info col-md-12">
+    <p class="lead">Ваши ученики</p>
+</div>
+
+<div class="fixed">
+        <input class="form-control" type="text" placeholder="ID" id="search-text" onkeyup="tableSearch()">
+        <a id="toSubmitA" href="#asd" class="list-group-item list-group-item-action active col fixed" aria-current="true">На удаление <span id="countofstd"></span></a>
+    </div>
+<table class="table table-striped" id="info-table">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Полное имя</th>
+            <th>Цель на 7 дней</th>
+            <th>Сделано</th>
+            <th>ENT</th>
+        </tr>
+            {% if student %}
+                {% for i in student %}
+                    <tr class="alert alert-info" onclick="removeFromAdmin(this, {{ i.pers_id }})">
+                        <td class="item"> {{ i.pers_id }} </td>
+                        {% if i.pers_nickname %}
+                            <td class="item"> {{ i.pers_nickname }} </td>
+                        {% else %}
+                            <td class="item"> No nick </td>
+                        {% endif %}
+                        <td class="item"> {{ i.pers_fullname }} </td>
+                        <td class="item"> {{ i.get_res_last_7days_target }} </td>
+                        <td class="item"> {{ i.get_res_last_7days_done }} </td>
+                        <td class="item"> {{ i.get_last_ent }} </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<form method="POST" action="{% url 'result:remove_std_fromadmin' admin.admin_id %}">
+                                {% csrf_token %}
+        <input id="students_rem" class="input100" type="text" name="std_rem" style="display: none">
+         <div style="margin-bottom: 5%" id="asd" class="col-md-12 justify-content-center" >
+            <button type="submit" class="btn btn-success col-md-12" style="margin: 0 auto">Удалить</button>
+        </div>
+    </form>
+</div>
+
+    <div id="searchDiv" style="display: block; width: 50%; margin: 0 auto;">
+    <div style="margin-top: 5%" class="container alert alert-info col-md-12">
+    <p class="lead">Добавить учеников</p>
+</div>
+    <div class="fixed">
+        <input class="form-control" type="text" placeholder="ID" id="search-text2" onkeyup="tableSearch2()">
+        <a id="toSubmitA" href="#toSubmit" class="list-group-item list-group-item-action active col fixed" aria-current="true">Добавить учеников <span id="addSTD"></span></a>
+    </div>
+
+    <table class="table table-striped" id="info-table2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Полное имя</th>
+            <th>Цель на 7 дней</th>
+            <th>Сделано</th>
+            <th>ENT</th>
+        </tr>
+            {% if select %}
+                {% for i in select %}
+                    {% if admin.admin_id == i.admin_id %}
+                        <tr class="alert alert-success" onclick="add_to_admin(this,{{ i.pers_id  }})">
+                            <td class="item"> {{ i.pers_id }} </td>
+                            {% if i.pers_nickname %}
+                                <td class="item"> {{ i.pers_nickname }} </td>
+                            {% else %}
+                                <td class="item"> No nick </td>
+                            {% endif %}
+                            <td class="item"> {{ i.pers_fullname }} </td>
+                            <td class="item"> {{ i.get_res_last_7days_target }} </td>
+                            <td class="item"> {{ i.get_res_last_7days_done }} </td>
+                            <td class="item"> {{ i.get_last_ent }} </td>
+                        </tr>
+                    {% else %}
+                        <tr class="alert alert-info" onclick="add_to_admin(this,{{ i.pers_id  }})">
+                            <td class="item"> {{ i.pers_id }} </td>
+                            {% if i.pers_nickname %}
+                                <td class="item"> {{ i.pers_nickname }} </td>
+                            {% else %}
+                                <td class="item"> No nick </td>
+                            {% endif %}
+                            <td class="item"> {{ i.pers_fullname }} </td>
+                            <td class="item"> {{ i.get_res_last_7days_target }} </td>
+                            <td class="item"> {{ i.get_res_last_7days_done }} </td>
+                            <td class="item"> {{ i.get_last_ent }} </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+    <form method="POST" action="{% url 'result:add_std_toadmin' admin.admin_id %}">
+                                {% csrf_token %}
+        <input id="students" class="input100" type="text" name="std" style="display: none">
+         <div id="toSubmit" class="col-md-12 justify-content-center" >
+            <button type="submit" class="btn btn-success col-md-12" style="margin: 0 auto">Добавить</button>
+        </div>
+    </form>
+</div>
+
+
+
+    <script type="text/javascript">
+        var text=""
+        var count = 0
+        function add_to_admin(row, pers){
+            if (row.classList.contains("alert-success")){
+                text = text.substring(0, text.indexOf(pers)) + text.substring(text.indexOf(" ", text.indexOf(pers)+1)+1)
+                count--;
+                row.classList.add("alert-info");
+                row.classList.remove("alert-success");
+            }
+            else{
+                text+=pers+" "
+                count++;
+                row.classList.remove("alert-info");
+                row.classList.add("alert-success");
+            }
+            document.getElementById("addSTD").textContent = count
+            document.getElementById("students").value = text
+        }
+        var text2=""
+        var count2=0
+        function removeFromAdmin(row, pers){
+            if (row.classList.contains("alert-danger")){
+                text2 = text2.substring(0, text2.indexOf(pers)) + text2.substring(text2.indexOf(" ", text2.indexOf(pers)+1)+1)
+                count--;
+                row.classList.add("alert-info");
+                row.classList.remove("alert-danger");
+            }
+            else{
+                text2+=pers+" "
+                count2++;
+                row.classList.remove("alert-info");
+                row.classList.add("alert-danger");
+            }
+            document.getElementById("countofstd").textContent = count2
+            document.getElementById("students_rem").value = text2
+        }
+        function tableSearch2() {
+    var phrase = document.getElementById('search-text2');
+    var table = document.getElementById('info-table2');
+    var regPhrase = new RegExp(phrase.value, 'i');
+    var flag = false;
+    for (var i = 1; i < table.rows.length; i++) {
+        flag = false;
+        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+            if (flag) break;
+        }
+        if (flag) {
+            table.rows[i].style.display = "";
+        } else {
+            table.rows[i].style.display = "none";
+        }
+
+    }
+}
+    </script>
+{% endblock %}

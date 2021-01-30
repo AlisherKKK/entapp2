@@ -1,0 +1,254 @@
+{% extends 'info.html' %}
+
+{% block greeting %}
+<h1>Привет, <span class="name">{{ name }}</span></h1>
+          <p>Ваши уроки: {{ sub1 }}, {{sub2}}</p>
+          <a href="#about" class="btn btn-default btn-lg page-scroll">Заполнять результаты</a> </div>
+{% endblock %}
+
+{% block info %}
+<div id="nav">
+  <nav class="navbar navbar-custom">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse"> <i class="fa fa-bars"></i> </button>
+        <a class="navbar-brand page-scroll" href="#page-top"><span id="spid">{{id}} | {{ persnickety }}</span></a> </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+        <ul class="nav navbar-nav">
+          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+          <li class="hidden"> <a href="#page-top"></a> </li>
+          <li> <a class="page-scroll" href="#">{{ name }}</a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<!-- About Section -->
+<div id="about">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Заполнять по дням</h2>
+      <hr>
+    </div>
+    <div class="row">
+      <form action="{% url 'result:add_res' pers %}" method="POST">
+                        {% csrf_token %}
+    <div style="display: flex">
+        <label style="font-size: 25px">Date: </label> <input class="inpdate" type="date" name = "date" value="2021-01-19">
+    </div>
+<table class="resp-tab">
+    <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Цель</th>
+            <th>Выполнено</th>
+            <th>Следующий день</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <!-- Строки таблицы -->
+        <tr>
+            <td>Мат сауат</td>
+            <td>{{ t1.target_targ }}</td>
+            <td><input type="number" placeholder="Выполнено" name = "done1"></td>
+            <td><input type="number" placeholder="Цель" name = "done11"></td>
+        </tr>
+        <tr>
+            <td>Оку сауат</td>
+            <td>{{ t2.target_targ }}</td>
+            <td><input type="number" placeholder="Выполнено" name = "done2"></td>
+            <td><input type="number" placeholder="Цель" name = "done22"></td>
+        </tr>
+        <tr>
+            <td>К тарих</td>
+            <td>{{ t3.target_targ }}</td>
+            <td><input type="number" placeholder="Выполнено" name = "done3"></td>
+            <td><input type="number" placeholder="Цель" name = "done33"></td>
+        </tr>
+        <tr>
+            <td>{{sub1}}</td>
+            <td>{{ t4.target_targ }}</td>
+            <td><input type="number" placeholder="Выполнено" name = "done4"></td>
+            <td><input type="number" placeholder="Цель" name = "done44"></td>
+        </tr>
+        <tr>
+            <td>{{sub2}}</td>
+            <td>{{ t5.target_targ }}</td>
+            <td><input type="number" placeholder="Выполнено" name = "done5"></td>
+            <td><input type="number" placeholder="Цель" name = "done55"></td>
+        </tr>
+
+    </tbody>
+</table>
+    <div class="container-login100-form-btn">
+            <input class="login100-form-btn btn btn-success" id="friend_form" type="submit">
+              Сдать
+            </input>
+          </div>
+
+</form>
+    </div>
+  </div>
+
+
+</div>
+
+<div id="about" class="toHideC" style="background-color: LightSeaGreen">
+  <div class="container">
+    <div class="section-title text-center center">
+      <h2>Результат пробного</h2>
+      <hr>
+    </div>
+    <div class="row">
+      <form action="{% url 'result:add_res_ent' pers %}" method="POST">
+                        {% csrf_token %}
+    <div style="display: flex">
+        <label style="font-size: 25px">Дата: </label> <input class="inpdate" type="date" name = "dateT" value="2021-01-19">
+        <label style="font-size: 25px; margin-left: 5%">Тип: </label> <input type="text" name = "typ" placeholder="Тип">
+    </div>
+<table class="resp-tab">
+    <thead>
+        <tr>
+            <th>Предмет</th>
+            <th>Цель {{tr.tr_target}}</th>
+            <th>Балл</th>
+            <th>Следующий тест</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Строки таблицы -->
+        <tr>
+            <td>Мат сауат</td>
+            <td>{{tr1.target_targ}}</td>
+            <td><input type="number" placeholder="Балл" name = "ent1"></td>
+            <td><input type="number" placeholder="Цель" name = "ent11"></td>
+        </tr>
+        <tr>
+            <td>Оку сауат</td>
+            <td>{{tr2.target_targ}}</td>
+            <td><input type="number" placeholder="Балл" name = "ent2"></td>
+            <td><input type="number" placeholder="Цель" name = "ent22"></td>
+        </tr>
+        <tr>
+            <td>К тарих</td>
+            <td>{{tr3.target_targ}}</td>
+            <td><input type="number" placeholder="Балл" name = "ent3"></td>
+            <td><input type="number" placeholder="Цель" name = "ent33"></td>
+        </tr>
+        <tr>
+            <td>{{sub1}}</td>
+            <td>{{tr4.target_targ}}</td>
+            <td><input type="number" placeholder="Балл" name = "ent4"></td>
+            <td><input type="number" placeholder="Цель" name = "ent44"></td>
+        </tr>
+        <tr>
+            <td>{{sub2}}</td>
+            <td>{{tr5.target_targ}}</td>
+            <td><input type="number" placeholder="Балл" name = "ent5"></td>
+            <td><input type="number" placeholder="Цель" name = "ent55"></td>
+        </tr>
+
+
+    </tbody>
+</table>
+    <div class="container-login100-form-btn">
+            <button class="login100-form-btn btn btn-success" type="submit">
+              Сдать
+            </button>
+          </div>
+
+</form>
+    </div>
+  </div>
+
+
+</div>
+<div style="width: 50%; margin: 0 auto;">
+
+    <input class="form-control" type="text" placeholder="Дата или предмет" id="search-text" onkeyup="tableSearch()">
+<table class="table table-striped" id="info-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Предмет</th>
+            <th>Цель</th>
+            <th>Сделано</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        {% for j in resOfPers %}
+                <tr>
+                    <td>{{j.get_date}}</td>
+                    <td> {{ j.get_subject_name }} </td>
+                    <td> {{ j.res_target }}
+                    <td> {{j.res_done}} </td>
+                </tr>
+                <tr><td ></td></tr>
+            {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div style="width: 50%; margin: 0 auto;">
+
+    <input class="form-control" type="text" placeholder="Дата или предмет" id="search-text" onkeyup="tableSearch()">
+<table class="table table-striped" id="info-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Предмет</th>
+            <th>Цель</th>
+            <th>Сделано</th>
+        </tr>
+
+    </thead>
+    <tbody>
+            {% for i in trialS %}
+                <tr>
+                    <td>{{i.get_date}}</td>
+                    <td> {{ i.get_subject_name }} </td>
+                    <td> {{ i.trsub_target }}
+                    <td> {{i.trsub_res}} </td>
+
+                </tr>
+            {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div id="searchDiv" style="display: none; width: 50%; margin: 0 auto;">
+
+    <input class="form-control" type="text" placeholder="ID" id="search-text" onkeyup="tableSearch()">
+<table class="table table-striped" id="info-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Сдал</th>
+            <th>Цель</th>
+            <th>Сделано</th>
+            <th>Пробный</th>
+            <th>Дата</th>
+        </tr>
+        {% for i in person %}
+            <tr>
+                <td> {{ i.pers_id }} </td>
+                <td> {{ i.pers_fullname }} </td>
+                <td> {{ i.get_last_submit }}
+                <td> {{i.get_all_target}} </td>
+                <td> {{ i.get_all_result }} </td>
+                <td> {{ i.get_last_trials_res }} </td>
+                <td> {{ i.get_last_trials_date }} </td>
+
+            </tr>
+        {% endfor %}
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+{% endblock %}

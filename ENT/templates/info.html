@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ENT</title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Favicons
+    ================================================== -->
+<link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/static/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/images/apple-touch-icon-114x114.png">
+
+
+
+
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome/css/font-awesome.css">
+<!-- Stylesheet
+    ================================================== -->
+<link rel="stylesheet" type="text/css"  href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/prettyPhoto.css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>
+<link rel="stylesheet" type="text/css"  href="/static/css/table1.css">
+<!--===============================================================================================-->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css" >
+    #intrr{
+        background-size: 100%;
+
+    }
+    #header{
+        background-size: 100%;
+    }
+    #video{
+        display: flex;
+        top: 0;
+        min-height: 500px;
+        width: 70%;
+        margin-left: 15%;
+    }
+
+
+</style>
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+<!-- Header -->
+<header id="header" style="height: 175%">
+  <div id="intrr" class="intro" style="height:100%; background-image: url('/static/images/predictor2.png');">
+    <div class="container">
+      <div class="row">
+        <div class="intro-text">
+            {% block greeting %}
+
+            {% endblock %}
+      </div>
+    </div>
+
+      <iframe id="video" src="https://www.youtube.com/embed/FB6YTJmJAxs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </video>
+    </div>
+  </div>
+</header>
+<!-- Navigation -->
+{% block info %}
+
+{% endblock %}
+<div style="height: 20%">
+
+</div>
+<script type="text/javascript">
+    $(function() {
+    $("#friend_form").submit(function(event) {
+        // Stop form from submitting normally
+        event.preventDefault();
+        const friendForm = $(this);
+        // Send the data using post
+        const posting = $.post(friendForm.attr('action'), friendForm.serialize());
+        // if success:
+        posting.done(function(data) {
+            alert("sad")
+            // success actions, maybe change submit button to 'friend added' or whatever
+        });
+        // if failure:
+        posting.fail(function(data) {
+            alert("qwe")
+            // 4xx or 5xx response, alert user about failure
+        });
+    });
+});
+</script>
+
+<script type="text/javascript" charset="utf-8" >
+
+
+    document.getElementsByClassName("inpdate")[0].valueAsDate = new Date();
+    document.getElementsByClassName("inpdate")[1].valueAsDate = new Date();
+
+    if (document.getElementById("spid").textContent=="777"){
+        document.getElementById("about").style.display = 'none'
+        document.getElementsByClassName("toHideC")[0].style.display = 'none'
+        document.getElementById("searchDiv").style.display = 'block'
+    }
+
+    function tableSearch() {
+    var phrase = document.getElementById('search-text');
+    var table = document.getElementById('info-table');
+    var regPhrase = new RegExp(phrase.value, 'i');
+    var flag = false;
+    for (var i = 1; i < table.rows.length; i++) {
+        flag = false;
+        for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+            flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+            if (flag) break;
+        }
+        if (flag) {
+            table.rows[i].style.display = "";
+        } else {
+            table.rows[i].style.display = "none";
+        }
+
+    }
+}
+</script>
+<script type="text/javascript" src="/static/js/jquery.1.11.1.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/SmoothScroll.js"></script>
+<script type="text/javascript" src="/static/js/easypiechart.js"></script>
+<script type="text/javascript" src="/static/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="/static/js/jquery.isotope.js"></script>
+<script type="text/javascript" src="/static/js/jquery.counterup.js"></script>
+<script type="text/javascript" src="/static/js/waypoints.js"></script>
+<script type="text/javascript" src="/static/js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="/static/js/contact_me.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+<script type="text/javascript" src="/static/js/table1.js"></script>
+<script src="/static/t/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+
+
+</body>
+</html>

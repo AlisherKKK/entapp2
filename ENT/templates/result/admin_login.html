@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% block title %}
+    Admins page
+{% endblock %}
+
+{% block form %}
+<form class="login100-form" action="{% url 'result:add_admin' %}" method="POST">
+    {% csrf_token %}
+					<span class="login100-form-logo" style="border-color: red">
+						<img width="135px" src="/static/images/ico-removebg-preview.png">
+					</span>
+					<span class="login100-form-title p-b-34 p-t-27" >
+						Log in
+					</span>
+
+					<div id="tohide" class="wrap-input100" data-validate = "Enter username">
+						<input id="usern" class="input100" type="text" name="username" placeholder="ID или никнейм">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+					<div  class="wrap-input100" data-validate = "Enter username" style="display: none">
+						<input id="predmett" class="input100" type="text" name="predmet" placeholder="ID">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+					<div  id="reg_id" style = "display: none" >
+						<div class="wrap-input100" data-validate = "Enter name, surname">
+							<input id="nsur" class="input100" type="text" name="nameS" placeholder="Имя Фамилия">
+							<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						</div>
+					</div>
+					<div class="wrap-input100 validate-input"  data-validate="Enter password">
+						<input onchange="predy();" class="input100" type="password" name="pass" placeholder="Пороль">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<span id="spann" class="login100-form-title p-b-34 p-t-27" style="color: red; font-size: 15px">
+						{{ word }}
+					</span>
+
+					<div class="container-login100-form-btn">
+						<button onclick="predy()" class="login100-form-btn" type="submit">
+							Войти
+						</button>
+					</div>
+					<div  class="container-login100-form-btn"  >
+						<button type="button" id="reg-back" class="login100-form-btn" onclick="reg_form()" >
+							Регистрация
+						</button>
+					</div>
+				</form>
+{% endblock %}
