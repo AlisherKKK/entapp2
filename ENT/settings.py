@@ -23,8 +23,6 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'result.apps.ResultConfig',
-    'jet',
-    'jet.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +60,6 @@ TEMPLATES = [
             ],
             'libraries': {
                 'custom_templatetags': 'result.templatetags.result_tag',
-
             }
         },
     },
